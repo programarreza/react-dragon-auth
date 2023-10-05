@@ -1,6 +1,6 @@
+import PropTypes from "prop-types";
 import { AiFillStar } from "react-icons/ai";
 import { SlBadge, SlEye, SlShare } from "react-icons/sl";
-import PropTypes from "prop-types"
 import { Link } from "react-router-dom";
 
 const News = ({ news }) => {
@@ -50,15 +50,14 @@ const News = ({ news }) => {
 			</div>
 			<div className="p-6">
 				<div>
+
 					{
-						details.length > 200
-							? <p>{details.slice(0, 200)} <Link to={`/news-details/${_id}`} className="text-rose">Reade More...</Link></p>
-							:
-							<p>{details}</p>
+						details.length > 200 ? <p>{details.slice(0, 200)} <Link to={`/news-details/${_id}`} className="text-rose">Reade More..</Link></p> : <p>{details}</p>
 					}
+
 				</div>
 				<div className="mb-2 flex items-center justify-between">
-					<p className="block font-sans text-base font-medium leading-relaxed text-blue-gray-900 antialiased">
+					<div className="block font-sans text-base font-medium leading-relaxed text-blue-gray-900 antialiased">
 						<div className="flex text-rose text-2xl">
 							<AiFillStar></AiFillStar>
 							<AiFillStar></AiFillStar>
@@ -67,7 +66,7 @@ const News = ({ news }) => {
 							<AiFillStar></AiFillStar>
 
 						</div>
-					</p>
+					</div>
 					<p className="block font-sans text-base font-medium leading-relaxed text-blue-gray-900 antialiased">
 						<span className="flex items-center gap-2"><SlEye /> {total_view}</span>
 					</p>

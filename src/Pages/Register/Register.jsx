@@ -1,44 +1,34 @@
-import { Toaster } from "react-hot-toast";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import Navbar from "../Shared/Navbar/Navbar";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import Navbar from "../Shared/Navbar/Navbar";
 
 const Register = () => {
-	const location = useLocation()
+	const [error, setError] = useState("")
+	const { createUser } = useContext(AuthContext);
 	const navigate = useNavigate()
 
-	const {createUser} = useContext(AuthContext)
-
-	const handleRegister = (e) => {
+	const handleRegister = e => {
 		e.preventDefault();
-		// const name = e.target.name.value;
-		// const photo = e.target.photo.value;
-		// const email = e.target.email.value;
-		// const password = e.target.password.value;
-		// console.log(name, photo, email, password);
-
 		const form = new FormData(e.currentTarget)
-		const name = form.get("name")
-		const photo = form.get("photo")
-		const email = form.get("email")
-		const password = form.get("password")
-		console.log(name, photo, email, password);
+		const email = form.get("email");
+		const password = form.get("password");
 
-		// create user
+		setError("")
+		if (!/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/.test(password)) {
+			return setError("Minimum 8 characters at least on letter and one number");
+		}
+
 		createUser(email, password)
-		.then(result => {
-			console.log(result.user);
-
-			// navigate after registration
-			navigate(location?.state ? location.state : "/")
-		})
-		.catch(error => {
-			console.error(error.message);
-		})
-
+			.then(() => {
+				toast.success("Registration successful");
+				navigate("/")
+			})
+			.catch(error => {
+				toast.error(error.message);
+			})
 	}
-
 	return (
 		<div>
 			<Navbar></Navbar>
@@ -77,6 +67,10 @@ const Register = () => {
 									<input type="checkbox" name="check" id="" />
 									<p>Accept <Link to={""}>Term & Conditions</Link></p>
 								</div>
+								{
+									error && <p className="text-rose">{error}</p>
+								}
+
 							</div>
 							<div className="form-control mt-6">
 								<button className="btn btn-primary">Register</button>

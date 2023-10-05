@@ -1,15 +1,16 @@
-import { useContext } from "react";
 import { AiFillGithub, AiFillTwitterCircle, AiOutlineInstagram } from "react-icons/ai";
 import { BsFacebook } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
-import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import qZone1 from "../../../assets/qZone1.png";
 import qZone2 from "../../../assets/qZone2.png";
 import qZone3 from "../../../assets/qZone3.png";
+import { useContext } from "react";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
 
 const RightSideNav = () => {
-	const { googleLogin, githubLogin } = useContext(AuthContext)
-	// console.log(12, googleLogin);
+	const { googleLogin, facebookLogin, githubLogin } = useContext(AuthContext)
+
+
 
 	return (
 		<>
@@ -18,6 +19,10 @@ const RightSideNav = () => {
 				<button onClick={googleLogin} className="btn w-full btn-outline">
 					<FcGoogle />
 					Login with Google
+				</button>
+				<button onClick={facebookLogin} className="btn w-full btn-outline">
+					<FcGoogle />
+					Login with Facebook
 				</button>
 				<button onClick={githubLogin} className="btn w-full btn-outline">
 					<AiFillGithub />

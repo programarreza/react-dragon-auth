@@ -4,7 +4,7 @@ import RightSideNav from "../Shared/RightSideNav/RightSideNav";
 import Navbar from "../Shared/Navbar/Navbar";
 
 const NewsDetails = () => {
-	const {id} = useParams();
+	// const {id} = useParams();
 
 	return (
 		<div>
@@ -12,7 +12,7 @@ const NewsDetails = () => {
 			<Navbar></Navbar>
 			<div className="grid grid-cols-4">
 				<div className="col-span-3 border">
-					news details <p>id: {id}</p>
+				news details {/* <p>id: {id}</p> */}
 				</div>
 				<div className="col-span-1">
 					<RightSideNav></RightSideNav>

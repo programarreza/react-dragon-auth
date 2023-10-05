@@ -1,15 +1,21 @@
-import { Link, NavLink } from "react-router-dom";
-import userDefaultImage from "../../../assets/user.png"
 import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
+import userDefaultImage from "../../../assets/user.png";
 
 const Navbar = () => {
-	const { user, logOut } = useContext(AuthContext)
 
-	const handleSignOut = () => {
+	const { user, logOut } = useContext(AuthContext)
+	// console.log(10, user);
+
+	const handleLogOut = () => {
 		logOut()
-			.then()
-			.catch()
+			.then(result => {
+				console.log(result.user);
+			})
+			.catch(error => {
+				console.log(error.message);
+			})
 	}
 
 	const navLinks = <div className="flex gap-6 text-lg text-dark-3">
@@ -58,15 +64,20 @@ const Navbar = () => {
 				</ul>
 			</div>
 			<div className="navbar-end">
+					<p>
+						{
+							user ? user?.email : user?.displayName
+						}
+					</p>
 				<label tabIndex={0} className="btn btn-ghost btn-circle avatar">
 					<div className="w-10 rounded-full">
 						<img src={userDefaultImage} />
 					</div>
 				</label>
 				{
-					user ? <button onClick={handleSignOut} className="btn">Log Out</button>
-						:
-						<Link to="/login" className="btn">Login</Link>
+					user ?  <Link to="/" onClick={handleLogOut} className="btn">Log out</Link> 
+					:
+					<Link to="/login" className="btn">Login</Link>
 				}
 			</div>
 		</div>
